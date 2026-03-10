@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers"
+import Nav from "@/components/ui/nav";
 
 
 const geistSans = Geist({
@@ -34,7 +35,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased bg-background overflow-hidden`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <main className="mx-12 my-6 overflow-hidden! min-h-lvh">
+              <Nav/>
+              {children}
+              </main>
+        </Providers>
       </body>
     </html>
   );
