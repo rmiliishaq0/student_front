@@ -13,9 +13,14 @@ import { Field, FieldGroup, FieldLabel ,FieldError} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 
 
 export function ConnectForm({title,type}:{title:string,type:"login"|"register"}) { 
+      const [open, setOpen] = useState(false)
+      const route = useRouter()
       let userSchema = z.object({
       email: z.email("Invalid email address"),
       password: z.string().min(6, "Password must be at least 6 characters long"),
@@ -45,9 +50,11 @@ export function ConnectForm({title,type}:{title:string,type:"login"|"register"})
   function handleSubmit(data: z.infer<typeof userSchema>) {
     console.log("Submitting form with data:", data);
     // connect to backend and create account or login
+    setOpen(false)
+    route.push("/predict")
   }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form id="form-rhf-demo" onSubmit={form.handleSubmit(handleSubmit)} className="w-full">
         <DialogTrigger asChild>
           <Button variant={type=="login"?"outline":"default"} className={`cursor-pointer ${type=="login"?"":"bg-primary hover:bg-primary/80 text-white"} `} >

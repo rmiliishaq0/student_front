@@ -24,7 +24,12 @@ export default function Nav(){
                 >
                     Home
                 </Button>
-                </Link>                    
+                </Link>    
+                <Link href={"/predict"}><Button className={`cursor-pointer ${
+                    pathname == "/predict"
+                        ? "bg-primary hover:bg-primary/80 text-white"
+                        : ""
+                    }`}   variant={pathname == "/predict" ? "default" : "outline"}>Predict</Button></Link>                
                 <Link href={"/dashboard"}><Button className={`cursor-pointer ${
                     pathname == "/dashboard"
                         ? "bg-primary hover:bg-primary/80 text-white"
