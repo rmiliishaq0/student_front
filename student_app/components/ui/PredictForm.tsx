@@ -43,7 +43,7 @@ export default function PredictForm(){
         hidden: {},
         show: {
          transition: {
-            delayChildren: 0.3,
+            
             staggerChildren: 0.2
         }
     }
@@ -58,7 +58,7 @@ export default function PredictForm(){
         <motion.form variants={container} initial="hidden" animate="show" onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-6">
             { FormFields.map((i) => (
                 <motion.div  key={i.name} variants={item}>
-                    <FormCard key={i.name} title={i.name} Logo={<i.logo className="h-5 w-5 text-indigo-500" />} >
+                    <FormCard  key={i.name} title={i.name} Logo={<i.logo className="h-5 w-5 text-indigo-500" />} >
                         {i.fields.length ===5 ?(
                             <div className="flex flex-col gap-4">
                                 <div className="flex justify-center gap-4 items-center">
@@ -149,7 +149,7 @@ export default function PredictForm(){
                  </FormCard>
                 </motion.div>
             ))}
-            <Button disabled={form.formState.isSubmitting || !form.formState.isValid} className="w-full p-5 bg-primary hover:bg-primary/80 text-white cursor-pointer self-end font-semibold"><Brain className="h-5 w-5" /> Predict Exam Score</Button>
+            <Button disabled={form.formState.isSubmitting || !form.formState.isValid} className="shadow-lg w-full p-5 bg-primary hover:bg-primary/80 text-white cursor-pointer self-end font-semibold"><Brain className="h-5 w-5" /> Predict Exam Score</Button>
         </motion.form>   
          )
 }

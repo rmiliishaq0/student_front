@@ -21,3 +21,9 @@ export const formSchema = z.object({
         MentalHealthScore: z.number().min(1).max(10),
         BurnoutLevel: z.number().min(1).max(10)
     })
+
+export const userSchemaZod = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+    confirmPassword: z.string().optional(),
+})    

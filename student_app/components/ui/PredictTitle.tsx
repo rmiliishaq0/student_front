@@ -11,6 +11,6 @@ export default function PredictTitle(){
                 <div>
                     <Button className="cursor-pointer" variant={"outline"}>Skip</Button>
                 </div>
-            </motion.div>
+        </motion.div>
     )
 }

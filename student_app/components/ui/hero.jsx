@@ -24,7 +24,7 @@ export default function Hero(){
                 Predict exam performance using AI analysis of study habits, lifestyle patterns, and mental wellness indicators.
             </p>
             </div>
-            <Button onClick={()=>{router.push("/dachboard")}} size="lg" className="text-white p-5 gap-2 z-30 cursor-pointer mt-10 glow">
+            <Button onClick={()=>{router.push("/predict")}} size="lg" className="text-white p-5 gap-2 z-30 cursor-pointer mt-10 glow">
                 <Brain className="h-5 w-5" /> Start Prediction <ArrowRight className="h-4 w-4" />
             </Button>
         </motion.div>

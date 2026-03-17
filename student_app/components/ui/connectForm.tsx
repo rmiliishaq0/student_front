@@ -13,33 +13,62 @@ import { Field, FieldGroup, FieldLabel ,FieldError} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState,useMemo } from "react";
+import { userSchemaZod } from "@/utils/schemas";
+import { useMutation } from "@tanstack/react-query";
+import { connect } from "@/utils/api";
+import { toast } from "sonner";
+import { useAuthStore } from "@/store/auth-store";
+export function ConnectForm({
+  title,
+  type,
+}: {
+  title: string
+  type: "login" | "register"
+}) {
+  const {setUser } = useAuthStore()
+  const { mutate, error, isError, isPending, reset } = useMutation({
+  mutationFn: connect,
+  onSuccess: (data) => {
+    setUser(data?.user)
+    setOpenForm(false)
+    router.push("/predict")
 
+    toast.success(
+      isRegister
+        ? "Registration successful! Your account has been created."
+        : "Login successful! Welcome back."
+    )
+  },
+  onError: (error) => {
+    toast.error(error instanceof Error ? error.message : "An error occurred")
+  },
+  })  
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
+  const [openForm, setOpenForm] = useState(false)
 
-export function ConnectForm({title,type}:{title:string,type:"login"|"register"}) { 
-      const [open, setOpen] = useState(false)
-      const route = useRouter()
-      let userSchema = z.object({
-      email: z.email("Invalid email address"),
-      password: z.string().min(6, "Password must be at least 6 characters long"),
-      confirmPassword: type === "register"
-        ? z.string().min(6, "Passwords don't match")
-        : z.string().optional(),
-    })
+  const isRegister = type === "register"
 
-    if (type === "register") {
-      userSchema = userSchema.refine(
-        (data) => data.password === data.confirmPassword,
-        {
-          message: "Passwords don't match",
-          path: ["confirmPassword"],
-        }
-      )
+  const userSchema = useMemo(() => {
+    const base = userSchemaZod
+
+    if (isRegister) {
+      return base.refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ["confirmPassword"],
+      })
     }
-    const form = useForm<z.infer<typeof userSchema>>({
+
+    return base
+  }, [isRegister])
+
+
+  const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -47,96 +76,146 @@ export function ConnectForm({title,type}:{title:string,type:"login"|"register"})
     },
   })
 
-  function handleSubmit(data: z.infer<typeof userSchema>) {
-    console.log("Submitting form with data:", data);
-    // connect to backend and create account or login
-    setOpen(false)
-    route.push("/predict")
+  
+  useEffect(() => {
+    if (type === "login") {
+      setOpenForm(!!searchParams.get("login"))
+    }
+  }, [searchParams, type])
+
+
+ 
+  function handleSubmit(d: z.infer<typeof userSchema>) {
+    mutate(d)
   }
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <form id="form-rhf-demo" onSubmit={form.handleSubmit(handleSubmit)} className="w-full">
-        <DialogTrigger asChild>
-          <Button variant={type=="login"?"outline":"default"} className={`cursor-pointer ${type=="login"?"":"bg-primary hover:bg-primary/80 text-white"} `} >
-            {title}
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-sm">
-          <DialogHeader className="mt-2">
-            <DialogTitle>{title}</DialogTitle>
-          </DialogHeader>
-          <hr></hr>
+    <>
+       <Dialog
+      open={openForm}
+      onOpenChange={(open) => {
+        if (!open) router.push("/")
+        setOpenForm(open)
+      }}
+    >
+      <DialogTrigger asChild>
+        <Button
+          variant={type === "login" ? "outline" : "default"}
+          className={`cursor-pointer ${
+            type === "login"
+              ? ""
+              : "bg-primary hover:bg-primary/80 text-white"
+          }`}
+        >
+          {title}
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent className="sm:max-w-sm">
+        <DialogHeader className="mt-2">
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+
+        <hr />
+
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="w-full space-y-6"
+        >
           <FieldGroup>
-            <Controller name="email"
-            control={form.control}
-            render={({field,fieldState})=>(
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="email">
-                    Email
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    type="email" 
-                    id="email"
-                    name="email" 
-                    placeholder="example@example.com"
-                    aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    required
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-              </Field>
-            )}/>
             <Controller
-              name="password"
+              name="email"
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Input 
-                    {...field} 
-                    id="password" 
-                    type="password" 
-                    placeholder="••••••••" 
-                    aria-invalid={fieldState.invalid}
+                <Field data-invalid={fieldState.invalid || isError}>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+
+                  <Input
+                    value={field.value}
+                    onChange={(e)=>{field.onChange(e);reset()}}
+                    id="email"
+                    type="email"
+                    placeholder="example@example.com"
+                    aria-invalid={fieldState.invalid || isError}
                     autoComplete="off"
-                    required
                   />
+
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
                 </Field>
-              )}/>
-            {type === "register" && (
-              <Controller
-              name="confirmPassword"
+              )}
+            />
+
+            <Controller
+              name="password"
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
-                <Input 
-                  {...field} 
-                  aria-invalid={fieldState.invalid}
-                  autoComplete="off" 
-                  id="confirm-password" 
-                  type="password" 
-                  placeholder="••••••••"
-                  required
-                />
-                {fieldState.invalid && (
+                <Field data-invalid={fieldState.invalid || isError}>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+
+                  <Input
+                    value={field.value}
+                    onChange={(e)=>{field.onChange(e);reset()}}
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    aria-invalid={fieldState.invalid || isError}
+                    autoComplete="off"
+                  />
+
+                  {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
-              </Field>
-              )}/>
+                </Field>
+              )}
+            />
+
+            {isRegister && (
+              <Controller
+                name="confirmPassword"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid || isError}>
+                    <FieldLabel htmlFor="confirm-password">
+                      Confirm Password
+                    </FieldLabel>
+
+                    <Input
+                      value={field.value}
+                      onChange={(e)=>{field.onChange(e);reset()}}
+                      id="confirm-password"
+                      type="password"
+                      placeholder="••••••••"
+                      aria-invalid={fieldState.invalid || isError}
+                      autoComplete="off"
+                    />
+
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
             )}
+            {
+                    isError && (
+                      <FieldError className="-my-1.25" errors={[error]} />
+                    )
+                  }
           </FieldGroup>
+
           <DialogFooter>
-            <Button type="submit" form="form-rhf-demo" disabled={!form.formState.isValid} className="bg-primary hover:bg-primary/80 text-white cursor-pointer" >{title}</Button>
+            <Button
+              type="submit"
+              disabled={!form.formState.isValid || isPending || isError }
+              className="bg-primary hover:bg-primary/80 text-white cursor-pointer"
+            >
+              {title}
+            </Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
+    </>
   )
 }

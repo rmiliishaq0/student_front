@@ -4,6 +4,12 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers"
 import Nav from "@/components/ui/nav";
+import { Toaster } from "@/components/ui/sonner"
+import {
+  QueryClientProvider,
+  QueryClient,
+} from '@tanstack/react-query'
+
 
 
 const geistSans = Geist({
@@ -30,6 +36,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient()
   return (
     <html lang="en">
       <body
@@ -39,8 +46,9 @@ export default function RootLayout({
           <main className="mx-12 my-6 overflow-hidden! min-h-lvh">
               <Nav/>
               {children}
-              </main>
-        </Providers>
+          </main>
+        <Toaster />
+      </Providers>
       </body>
     </html>
   );
