@@ -20,6 +20,7 @@ import { useMutation } from "@tanstack/react-query";
 import { connect } from "@/utils/api";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth-store";
+import { Spinner } from "./spinner";
 export function ConnectForm({
   title,
   type,
@@ -208,9 +209,15 @@ export function ConnectForm({
             <Button
               type="submit"
               disabled={!form.formState.isValid || isPending || isError }
-              className="bg-primary hover:bg-primary/80 text-white cursor-pointer"
+              className="bg-primary hover:bg-primary/80 text-white cursor-pointer "
             >
-              {title}
+              {
+                isPending ? (
+                  <Spinner/>
+                ):(
+                  title
+                )
+              }
             </Button>
           </DialogFooter>
         </form>

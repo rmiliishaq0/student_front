@@ -21,23 +21,27 @@ export default function SelectField({
   fieldState,
   label,
   placeholder,
-  Fields
+  Fields,
+  isError,
+  reset
 }: {
   field: ControllerRenderProps<z.infer<typeof formSchema>, any>
   fieldState: ControllerFieldState
   label: string
   placeholder: string
-  Fields: string[]
+  Fields: string[],
+  isError:boolean,
+  reset:()=>void,
 }) {
   return (
-    <Field data-invalid={fieldState.invalid}>
+    <Field data-invalid={fieldState.invalid || isError}>
       <FieldLabel>{label}</FieldLabel>
 
       <Select
         value={field.value}
-        onValueChange={field.onChange}
+        onValueChange={(e)=>{field.onChange(e);reset()}}
       >
-        <SelectTrigger aria-invalid={fieldState.invalid}>
+        <SelectTrigger aria-invalid={fieldState.invalid || isError}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
 

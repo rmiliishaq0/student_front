@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/field"
 import { Slider } from "./slider"
 import { formSchema } from "@/utils/schemas";
-export default function SliderField({field,fieldState,label,min,max}:{field: ControllerRenderProps<z.infer<typeof formSchema>,any>,fieldState: ControllerFieldState,label:string,min:number,max:number}){
+export default function SliderField({field,fieldState,label,min,max,isError,reset}:{field: ControllerRenderProps<z.infer<typeof formSchema>,any>,fieldState: ControllerFieldState,label:string,min:number,max:number,isError:boolean,reset:()=>void}){
     return(
-        <Field data-invalid={fieldState.invalid}>
+        <Field data-invalid={fieldState.invalid || isError}>
             <div className="flex justify-between">
             <FieldLabel htmlFor="name">{label}</FieldLabel>
-            <span aria-invalid={fieldState.invalid} className={`text-sm font-mono text-muted-foreground ${fieldState.invalid ? "text-red-400" : ""}`}>
+            <span aria-invalid={fieldState.invalid|| isError} className={`text-sm font-mono text-muted-foreground ${fieldState.invalid || isError ? "text-red-400" : ""}`}>
                 {field.value ?? min}
              </span>            
              </div>
@@ -21,7 +21,7 @@ export default function SliderField({field,fieldState,label,min,max}:{field: Con
                 max={max}
                 step={1}
                 value={[field.value ?? min]}
-                onValueChange={([value]) => field.onChange(value)}
+                onValueChange={([value]) => {field.onChange(value);reset()}}
              />
          </Field>
     )

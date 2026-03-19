@@ -10,6 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import {
   LogOutIcon,
@@ -43,24 +44,24 @@ export default function Nav(){
                     <Link href={"/"} className="text-white text-xl font-bold">ScorePredict</Link>
                 </div>
                 <div className="flex gap-4">
-                <Link href="/">
-                <Button
-                    variant={pathname == "/"?"default":"outline"}
-                    className={`cursor-pointer ${
-                    pathname == "/"
-                        ? "bg-primary hover:bg-primary/80 text-white"
-                        : ""
-                    }`} 
-                >
-                    Home
-                </Button>
+                <Link className="max-sm:hidden" href="/">
+                    <Button
+                        variant={pathname == "/"?"default":"outline"}
+                        className={`cursor-pointer ${
+                        pathname == "/"
+                            ? "bg-primary hover:bg-primary/80 text-white"
+                            : ""
+                        }`} 
+                    >
+                        Home
+                    </Button>
                 </Link>    
-                <Link href={"/predict"}><Button className={`cursor-pointer ${
+                <Link  href={"/predict"}><Button className={`max-sm:hidden cursor-pointer ${
                     pathname == "/predict"
                         ? "bg-primary hover:bg-primary/80 text-white"
                         : ""
                     }`}   variant={pathname == "/predict" ? "default" : "outline"}>Predict</Button></Link>                
-                <Link href={"/dashboard"}><Button className={`cursor-pointer ${
+                <Link href={"/dashboard"}><Button className={`max-sm:hidden cursor-pointer ${
                     pathname == "/dashboard"
                         ? "bg-primary hover:bg-primary/80 text-white"
                         : ""
@@ -78,6 +79,13 @@ export default function Nav(){
                                     </Avatar>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
+                                    <DropdownMenuItem className="sm:hidden" onClick={()=>router.push("/dashboard")}>
+                                            Dashboard
+                                    </DropdownMenuItem>
+                                     <DropdownMenuItem className="sm:hidden" onClick={()=>{router.push("/predict")}}>
+                                            Predict
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator className="sm:hidden" />
                                     <DropdownMenuItem onClick={handelLogOut} variant="destructive">
                                         <LogOutIcon />
                                         Log out

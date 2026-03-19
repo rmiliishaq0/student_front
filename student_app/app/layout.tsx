@@ -5,10 +5,6 @@ import { Inter } from "next/font/google";
 import { Providers } from "./providers"
 import Nav from "@/components/ui/nav";
 import { Toaster } from "@/components/ui/sonner"
-import {
-  QueryClientProvider,
-  QueryClient,
-} from '@tanstack/react-query'
 
 
 
@@ -36,7 +32,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient()
   return (
     <html lang="en">
       <body
