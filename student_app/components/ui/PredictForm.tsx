@@ -15,18 +15,20 @@ import { predict } from "@/utils/api"
 import { FieldError } from "./field"
 import { toast } from "sonner"
 import { useAuthStore } from "@/store/auth-store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Spinner } from "./spinner"
 import Score from "./ScoreDrawer"
 
 
 export default function PredictForm(){
+    const [open,setOpen] = useState(false)
     const {setUser,user} =useAuthStore()
     const { mutate, error, isError, isPending ,reset} = useMutation({
         mutationFn:predict,
         onSuccess:(e)=>{
             setUser(e.user)
             toast.success(e?.message)
+            setOpen(true)
         },
         onError: (error) => {
             toast.error(error instanceof Error ? error.message : "An error occurred")
@@ -230,7 +232,7 @@ export default function PredictForm(){
                 </>
                 )
               }</Button>
-              {user?.predictData?.isPredict && <Score rawScore={user?.predictData?.score}/>}
+              {user?.predictData?.isPredict && <Score open={open}  setOpen={setOpen} rawScore={user?.predictData?.score}/>}
             </motion.div>
         </motion.form>   
          )

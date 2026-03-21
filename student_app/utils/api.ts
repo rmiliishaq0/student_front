@@ -45,7 +45,23 @@ export async function predict(req:z.infer<typeof formSchema>){
   }) 
   const data = await response.json()
   if(!response.ok){
+    console.log(response)
     throw new Error(data.message || "Request failed")
   }
   return data
+}
+
+export async function predictApi(req:z.infer<typeof formSchema>) {
+    const res = await fetch(`${process.env.SERVER_AI}/predict`,{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify(req)
+    })
+    const data = await res.json();
+      if (!res.ok) {
+       throw new Error(data.message || "Request failed");
+    }
+    return data
 }

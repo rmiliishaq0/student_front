@@ -16,10 +16,10 @@ import ScoreChart from "./ScoreChart"
 
 
 
-export default function ScoreDrawer({rawScore = 0, }: {rawScore?: number}) {
+export default function ScoreDrawer({rawScore = 0, open,setOpen}: {rawScore?: number,open:boolean,setOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button className="p-5 flex-1" variant="outline">
           Your Performance

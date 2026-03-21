@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import  jwt  from "jsonwebtoken";
 import { connectDB } from "@/lib/mongodb"
 import User from "@/model/User";
+import {predictApi} from "@/utils/api"
 
 export async function POST(req:Request) {
     try{
@@ -25,10 +26,18 @@ export async function POST(req:Request) {
         return NextResponse.json({ message: "Invalid input"}, { status: 400 });
     }
     const validatedData = parsed.data;
+    let score: number
+    try {
+      const { result } = await predictApi(validatedData)
+      score = result[0]
+    } catch (err) {
+      return NextResponse.json(
+        { error: "Prediction service failed" },
+        { status: 502 } 
+      )
+    }
 
-    //Call Api
-    
-     await connectDB()
+    await connectDB()
     
     const user = await User.findByIdAndUpdate(
   userId,
@@ -36,7 +45,7 @@ export async function POST(req:Request) {
     $set: {
       predictData: {
         ...validatedData,
-        score: 10,
+        score: Number(score).toFixed(2),
         isPredict: true
       }
     }

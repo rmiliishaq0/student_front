@@ -5,9 +5,11 @@ import { formSchema } from "@/utils/schemas"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ScoreChart from "./ScoreChart";
 import { Button } from "./button";
-import { RefreshCcw} from "lucide-react"
+import { RefreshCcw,Brain,ArrowRight,AlertTriangleIcon} from "lucide-react"
 import Link from "next/link";
 import {motion} from "motion/react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
 
 const schema = formSchema.extend({score:z.number()})
 type PredictData = z.infer<typeof schema>
@@ -40,7 +42,9 @@ const item = {
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex gap-6 flex-col">
-                <motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{ duration: 0.6,ease: "easeOut" }}>
+                {user?.predictData?.isPredict ?
+                <>
+                    <motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{ duration: 0.6,ease: "easeOut" }}>
                     <Card className="shadow-lg">
                  <CardContent >
                         <div className="mt-4  flex justify-center items-center flex-col">
@@ -73,15 +77,38 @@ const item = {
                 </CardContent>
             </Card>
             </motion.div>
+                </>
+                :
+                <>
+                    <motion.div  initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{ duration: 0.6,ease: "easeOut" }}>
+                        <Alert className="shadow-lg  border border-white/10">
+                        <AlertTriangleIcon />
+                        <AlertTitle>No predictions yet</AlertTitle>
+                            <AlertDescription>
+                            You haven’t made any predictions yet. Start now to see insights and results based on your data.
+                            </AlertDescription>
+                    </Alert>
+                    </motion.div>
+
+                </>
+                }
             <motion.div initial={{ opacity: 0 ,y:20 }} viewport={{ once: true }} whileInView={{ opacity: 1 ,y:0}} transition={{duration:0.5,ease:"easeOut"}}>
                 <Link href={"/predict"}>
                         <Button  className="w-full shadow-lg p-5 bg-primary hover:bg-primary/80 text-white cursor-pointer self-end font-semibold">
-               
-                        <RefreshCcw className="h-5 w-5" /> 
-                        <span>
-                            Predict again
-                         </span>
-            </Button>
+                            {user?.predictData?.isPredict ?
+                             <>
+                                <RefreshCcw className="h-5 w-5" /> 
+                                <span>
+                                    Predict again
+                                </span>
+                            </>
+                            :
+                            <>
+                                <Brain className="h-5 w-5" /> Start Prediction <ArrowRight className="h-4 w-4" /> 
+                            </>
+                            
+                        }
+                        </Button>
             </Link>
             </motion.div>
             </CardContent>
