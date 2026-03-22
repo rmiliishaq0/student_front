@@ -257,7 +257,7 @@ npm run dev -- -p 3001
 
 ### Issue: MongoDB Connection Failed
 - Ensure MongoDB is running: `mongod`
-- Check connection string in `.env.local`
+- Check connection string in `.env`
 - Verify credentials for MongoDB Atlas
 
 ### Issue: Python Virtual Environment Not Activating
