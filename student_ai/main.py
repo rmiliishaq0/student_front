@@ -9,4 +9,6 @@ model = joblib.load("model.pkl")
 def predict(data:PredictRequest):
     df = pd.DataFrame([data.model_dump()])
     prediction = model.predict(df)  
-    return {"result": prediction.tolist()}
+    score = int(prediction[0])
+    finalScore = (score / 60) * 100
+    return {"result": finalScore}

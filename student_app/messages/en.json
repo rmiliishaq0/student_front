@@ -1,0 +1,129 @@
+{
+  "Nav": {
+    "Home": "Home",
+    "Predict":"Predict",
+    "Dashboard":"Dashboard",
+    "Logout":"Log out"
+  },
+  "Connection":{
+    "CreateAccount":"Create account",
+    "SignIn":"Sign in",
+    "Email":"Email",
+    "Password":"Password",
+    "ConfirmPassword":"ConfirmPassword",
+    "RegisterMsg":"Registration successful! Your account has been created.",
+    "LoginMsg":"Login successful! Welcome back.",
+    "PassErr":"Passwords don't match"
+  },
+  "Hero":{
+    "Hint":"Powered by Machine Learning",
+    "Title":"Student Exam",
+    "SubTitle":"Score Predictor",
+    "Paragraph":"Predict exam performance using AI analysis of study habits, lifestyle patterns, and mental wellness indicators.",
+    "CallToAction":"Start Prediction"
+  },
+  "Dashboard":{
+    "Hello":"Hello",
+    "Info":"Your Information",
+    "NoPrediction":"No predictions yet",
+    "NoPredictionP":"You haven’t made any predictions yet. Start now to see insights and results based on your data.",
+    "StartBtn":"Start Prediction"
+  },
+  "Predict":{
+    "PredictTitle":"Predict Exam Score",
+    "PredictSub":"Fill in the details below for an AI-powered prediction.",
+    "Skip" :"Skip",
+    "PredictAgainBtn":"Predict again",
+    "PredictBtn":"Predict Exam Score",
+    "PredictParagraph":"This is your calculated productivity score.",
+    "title":"Your Performance",
+    "Close":"Close"
+  },
+  "Fields":{
+  "studentInfo": {
+    "title": "Student Information",
+    "age": "Age",
+    "gender": "Gender",
+    "academicLevel": "Academic Level",
+    "partTimeJob": "Part-Time Job"
+  },
+  "studyHabits": {
+    "title": "Study Habits",
+    "studyHours": "Study Hours",
+    "selfStudyHours": "Self-Study Hours",
+    "onlineClassesHours": "Online Classes Hours",
+    "focusIndex": "Focus Index",
+    "productivityScore": "Productivity Score"
+  },
+  "lifestyle": {
+    "title": "Lifestyle Factors",
+    "sleepHours": "Sleep Hours",
+    "exerciseMinutes": "Exercise Minutes",
+    "caffeineIntake": "Caffeine Intake",
+    "screenTimeHours": "Screen Time Hours"
+  },
+  "distractions": {
+    "title": "Distractions & Environment",
+    "socialMediaHours": "Social Media Hours",
+    "gamingHours": "Gaming Hours"
+  },
+  "environment": {
+    "title": "Environment",
+    "internetQuality": "Internet Quality",
+    "upcomingDeadline": "Upcoming Deadline",
+    "mentalHealthScore": "Mental Health Score",
+    "burnoutLevel": "Burnout Level"
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
+  },
+  "academic": {
+    "highSchool": "High School",
+    "undergraduate": "Undergraduate",
+    "postgraduate": "Postgraduate"
+  },
+  "internet": {
+    "poor": "Poor",
+    "average": "Average",
+    "good": "Good"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
+  }
+},
+"DachFields":{
+      "Age": "Age",
+      "Gender": "Gender",
+      "AcademicLevel": "Academic Level",
+      "PartTimeJob": "Part TimeJob",
+      "StudyHours": "Study Hours",
+      "SelfStudyHours": "Self-Study Hours",
+      "OnlineClassesHours": "Online Classes Hours",
+      "FocusIndex": "Focus Index",
+      "ProductivityScore": "Productivity Score",
+      "SleepHours": "Sleep Hours",
+      "ExerciseMinutes": "Exercise Minutes",
+      "CaffeineIntake": "Caffeine Intake",
+      "ScreenTimeHours": "Screen Time Hours",
+      "SocialMediaHours": "Social Media Hours",
+      "GamingHours": "Gaming Hours",
+      "InternetQuality": "Internet Quality",
+      "UpcomingDeadline": "Upcoming Deadline",
+      "MentalHealthScore": "Mental Health Score",
+      "BurnoutLevel": "Burnout Level",
+      "Yes": "Yes",
+      "No": "No",
+      "Male": "Male",
+      "Female": "Female",
+     "Other": "Other",
+      "HighSchool": "High School",
+      "Undergraduate": "Undergraduate",
+      "Postgraduate": "Postgraduate",
+      "Poor": "Poor",
+      "Average": "Average",
+      "Good": "Good"
+  }
+}

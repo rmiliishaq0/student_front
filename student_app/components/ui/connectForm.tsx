@@ -21,6 +21,7 @@ import { connect } from "@/utils/api";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth-store";
 import { Spinner } from "./spinner";
+import { useTranslations } from "next-intl";
 export function ConnectForm({
   title,
   type,
@@ -28,6 +29,7 @@ export function ConnectForm({
   title: string
   type: "login" | "register"
 }) {
+  const trans = useTranslations("Connection")
   const {setUser } = useAuthStore()
   const { mutate, error, isError, isPending, reset } = useMutation({
   mutationFn: connect,
@@ -38,8 +40,8 @@ export function ConnectForm({
 
     toast.success(
       isRegister
-        ? "Registration successful! Your account has been created."
-        : "Login successful! Welcome back."
+        ? trans("RegisterMsg")
+        : trans("LoginMsg")
     )
   },
   onError: (error) => {
@@ -58,7 +60,7 @@ export function ConnectForm({
 
     if (isRegister) {
       return base.refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match",
+        message: trans("PassErr"),
         path: ["confirmPassword"],
       })
     }
@@ -107,13 +109,13 @@ export function ConnectForm({
               : "bg-primary hover:bg-primary/80 text-white"
           }`}
         >
-          {title}
+          {trans(title)}
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-sm">
         <DialogHeader className="mt-2">
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{trans(title)}</DialogTitle>
         </DialogHeader>
 
         <hr />
@@ -128,7 +130,7 @@ export function ConnectForm({
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid || isError}>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <FieldLabel htmlFor="email">{trans("Email")}</FieldLabel>
 
                   <Input
                     value={field.value}
@@ -152,7 +154,7 @@ export function ConnectForm({
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid || isError}>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">{trans("Password")}</FieldLabel>
 
                   <Input
                     value={field.value}
@@ -178,7 +180,7 @@ export function ConnectForm({
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid || isError}>
                     <FieldLabel htmlFor="confirm-password">
-                      Confirm Password
+                      {trans("ConfirmPassword")}
                     </FieldLabel>
 
                     <Input
@@ -215,7 +217,7 @@ export function ConnectForm({
                 isPending ? (
                   <Spinner/>
                 ):(
-                  title
+                  trans(title)
                 )
               }
             </Button>

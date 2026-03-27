@@ -16,22 +16,22 @@ import ScoreChart from "./ScoreChart"
 
 
 
-export default function ScoreDrawer({rawScore = 0, open,setOpen}: {rawScore?: number,open:boolean,setOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function ScoreDrawer({rawScore = 0, open,setOpen,title,pargraph,close}: {rawScore?: number,open:boolean,setOpen:React.Dispatch<React.SetStateAction<boolean>>,title:String,pargraph:String,close:String}) {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button className="p-5 flex-1" variant="outline">
-          Your Performance
+         {title}
         </Button>
       </DrawerTrigger>
 
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Your Performance</DrawerTitle>
+            <DrawerTitle>{title}</DrawerTitle>
             <DrawerDescription>
-              This is your calculated productivity score.
+              {pargraph}
             </DrawerDescription>
           </DrawerHeader>
 
@@ -41,7 +41,7 @@ export default function ScoreDrawer({rawScore = 0, open,setOpen}: {rawScore?: nu
 
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="outline">Close</Button>
+              <Button variant="outline">{close}</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

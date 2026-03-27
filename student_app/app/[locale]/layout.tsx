@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { Providers } from "./providers"
 import Nav from "@/components/ui/nav";
 import { Toaster } from "@/components/ui/sonner"
+import {NextIntlClientProvider} from 'next-intl';
+
 
 
 
@@ -36,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.className} antialiased bg-background overflow-hidden`}
-      >
+      ><NextIntlClientProvider>
         <Providers>
           <main className="mx-12 my-6 overflow-hidden! min-h-lvh">
               <Nav/>
@@ -44,6 +46,7 @@ export default function RootLayout({
           </main>
         <Toaster />
       </Providers>
+      </NextIntlClientProvider>
       </body>
     </html>
   );

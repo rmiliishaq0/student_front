@@ -1,57 +1,67 @@
 import { BookOpen, Brain, Focus, Gamepad2, Moon, Wifi } from "lucide-react"
-import { label } from "motion/react-m"
 
-export const FormFields = [
+export const getFormFields = (t: any) => [
     {
-        name: "Student Information",
+        name: t("studentInfo.title"),
         logo: Brain,
         fields: [
-            { name: "Age", type: "slider", label: "Age", min: 15, max: 35 },
-            { name: "Gender", type: "select", label: "Gender", options: ["Male", "Female", "Other"] },
-            { name: "AcademicLevel", type: "select", label: "Academic Level", options: ["High School", "Undergraduate", "Graduate", "Postgraduate"] },
-            { name: "PartTimeJob", type: "select", label: "Part-Time Job", options: ["Yes", "No"] }
+            { name: "Age", type: "slider", label: t("studentInfo.age"), min: 16, max: 25 },
+
+            { name: "Gender", type: "select", label: t("studentInfo.gender"),options: ["Male", "Female", "Other"]},
+
+            { name: "AcademicLevel", type: "select", label: t("studentInfo.academicLevel"), options: ["High School", "Undergraduate", "Postgraduate"]}, 
+
+            { name: "PartTimeJob", type: "select", label: t("studentInfo.partTimeJob"),  options: ["Yes", "No"]}
         ]
-        
     },
     {
-        name: "Study Habits",
+        name: t("studyHabits.title"),
         logo: BookOpen,
         fields: [
-            { name: "StudyHours", type: "slider", label: "Study Hours", min: 0, max: 16 },
-            { name: "SelfStudyHours", type: "slider", label: "Self-Study Hours", min: 0, max: 12 },
-            { name: "OnlineClassesHours", type: "slider", label: "Online Classes Hours", min: 0, max: 10 },
-            { name: "FocusIndex", type: "slider", label: "Focus Index", min: 1, max: 10 },
-            { name: "ProductivityScore", type: "slider", label: "Productivity Score", min: 1, max: 10 }
+            { name: "StudyHours", type: "slider", label: t("studyHabits.studyHours"), min: 0, max: 12 },
+
+            { name: "SelfStudyHours", type: "slider", label: t("studyHabits.selfStudyHours"), min: 0, max: 7.5 }, 
+
+            { name: "OnlineClassesHours", type: "slider", label: t("studyHabits.onlineClassesHours"), min: 0, max: 6 },
+
+            { name: "FocusIndex", type: "slider", label: t("studyHabits.focusIndex"), min: 1, max: 65 }, 
+
+            { name: "ProductivityScore", type: "slider", label: t("studyHabits.productivityScore"), min: 1, max: 100 } 
         ]
     },
     {
-        name: "Lifestyle Factors",
+        name: t("lifestyle.title"),
         logo: Moon,
         fields: [
-            { name: "SleepHours", type: "slider", label: "Sleep Hours", min: 2, max: 12 },
-            { name: "ExerciseMinutes", type: "slider", label: "Exercise Minutes", min: 0, max: 180 }, 
-            { name: "CaffeineIntake", type: "slider", label: "Caffeine Intake", min: 0, max: 10 },
-            { name: "ScreenTimeHours", type: "slider", label: "Screen Time Hours", min: 0, max: 16 },
+            { name: "SleepHours", type: "slider", label: t("lifestyle.sleepHours"), min: 4, max: 10 },
+
+            { name: "ExerciseMinutes", type: "slider", label: t("lifestyle.exerciseMinutes"), min: 0, max: 150 }, 
+
+            { name: "CaffeineIntake", type: "slider", label: t("lifestyle.caffeineIntake"), min: 0, max: 500 }, 
+
+            { name: "ScreenTimeHours", type: "slider", label: t("lifestyle.screenTimeHours"), min: 1, max: 15.5 } 
         ]
     },
     {
-        name: "Distractions & Environment",
+        name: t("distractions.title"),
         logo: Gamepad2,
         fields: [
-            { name: "SocialMediaHours", type: "slider", label: "Social Media Hours", min: 0, max: 12 },
-            { name: "GamingHours", type: "slider", label: "Gaming Hours", min: 0, max: 12 },
-        ]
+            { name: "SocialMediaHours", type: "slider", label: t("distractions.socialMediaHours"), min: 0, max: 8.5 },
 
-    }
-    ,
+            { name: "GamingHours", type: "slider", label: t("distractions.gamingHours"), min: 0, max: 5.7 },
+        ]
+    },
     {
-        name: "Environment",
+        name: t("environment.title"),
         logo: Wifi,
         fields: [
-            { name: "InternetQuality", type: "select", label: "Internet Quality", options: ["Poor", "Average", "Good", "Excellent"] },
-            { name: "UpcomingDeadline", type: "select", label: "Upcoming Deadline", options: ["Yes", "No"] },
-            { name: "MentalHealthScore", type: "slider", label: "Mental Health Score", min: 1, max: 10 },
-            { name: "BurnoutLevel", type: "slider", label: "Burnout Level", min: 1, max: 10 }
+            { name: "InternetQuality", type: "select", label: t("environment.internetQuality"), options:  ["Poor", "Average", "Good"]},
+
+            { name: "UpcomingDeadline", type: "select", label: t("environment.upcomingDeadline"), options: ["Yes", "No"] },
+
+            { name: "MentalHealthScore", type: "slider", label: t("environment.mentalHealthScore"), min: 1, max: 10 },
+
+            { name: "BurnoutLevel", type: "slider", label: t("environment.burnoutLevel"), min: 1, max: 100 } 
         ]
     }
 ]

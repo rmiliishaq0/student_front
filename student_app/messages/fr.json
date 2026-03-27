@@ -1,0 +1,129 @@
+{
+  "Nav": {
+    "Home": "Accueil",
+    "Predict": "Prédire",
+    "Dashboard": "Tableau de bord",
+    "Logout": "Se déconnecter"
+  },
+  "Connection": {
+    "CreateAccount": "Créer un compte",
+    "SignIn": "Se connecter",
+    "Email": "Email",
+    "Password": "Mot de passe",
+    "ConfirmPassword": "Confirmer le mot de passe",
+    "RegisterMsg": "Inscription réussie ! Votre compte a été créé.",
+    "LoginMsg": "Connexion réussie ! Bon retour.",
+    "PassErr": "Les mots de passe ne correspondent pas"
+  },
+  "Hero": {
+    "Hint": "Propulsé par le Machine Learning",
+    "Title": "Examen des étudiants",
+    "SubTitle": "Prédicteur de score",
+    "Paragraph": "Prédisez les performances aux examens grâce à l'analyse par IA des habitudes d'étude, du mode de vie et du bien-être mental.",
+    "CallToAction": "Commencer la prédiction"
+  },
+  "Dashboard": {
+    "Hello": "Bonjour",
+    "Info": "Vos informations",
+    "NoPrediction": "Aucune prédiction pour le moment",
+    "NoPredictionP": "Vous n'avez encore fait aucune prédiction. Commencez maintenant pour voir des analyses et résultats basés sur vos données.",
+    "StartBtn": "Commencer la prédiction"
+  },
+  "Predict": {
+    "PredictTitle": "Prédire le score d'examen",
+    "PredictSub": "Remplissez les informations ci-dessous pour une prédiction basée sur l'IA.",
+    "Skip": "Passer",
+    "PredictAgainBtn": "Prédire à nouveau",
+    "PredictBtn": "Prédire le score d'examen",
+    "PredictParagraph": "Voici votre score de productivité calculé.",
+    "title": "Votre performance",
+    "Close": "Fermer"
+  },
+  "Fields": {
+    "studentInfo": {
+      "title": "Informations sur l'étudiant",
+      "age": "Âge",
+      "gender": "Genre",
+      "academicLevel": "Niveau académique",
+      "partTimeJob": "Emploi à temps partiel"
+    },
+    "studyHabits": {
+      "title": "Habitudes d'étude",
+      "studyHours": "Heures d'étude",
+      "selfStudyHours": "Heures d'auto-apprentissage",
+      "onlineClassesHours": "Heures de cours en ligne",
+      "focusIndex": "Indice de concentration",
+      "productivityScore": "Score de productivité"
+    },
+    "lifestyle": {
+      "title": "Facteurs de mode de vie",
+      "sleepHours": "Heures de sommeil",
+      "exerciseMinutes": "Minutes d'exercice",
+      "caffeineIntake": "Consommation de caféine",
+      "screenTimeHours": "Temps d'écran (heures)"
+    },
+    "distractions": {
+      "title": "Distractions & environnement",
+      "socialMediaHours": "Temps sur les réseaux sociaux",
+      "gamingHours": "Temps de jeu"
+    },
+    "environment": {
+      "title": "Environnement",
+      "internetQuality": "Qualité d'internet",
+      "upcomingDeadline": "Échéance proche",
+      "mentalHealthScore": "Score de santé mentale",
+      "burnoutLevel": "Niveau de burnout"
+    },
+    "gender": {
+      "male": "Homme",
+      "female": "Femme",
+      "other": "Autre"
+    },
+    "academic": {
+      "highSchool": "Lycée",
+      "undergraduate": "Licence",
+      "postgraduate": "Postgraduate"
+    },
+    "internet": {
+      "poor": "Mauvaise",
+      "average": "Moyenne",
+      "good": "Bonne"
+    },
+    "common": {
+      "yes": "Oui",
+      "no": "Non"
+    }
+  },
+  "DachFields": {
+    "Age": "Âge",
+    "Gender": "Genre",
+    "AcademicLevel": "Niveau académique",
+    "PartTimeJob": "Emploi à temps partiel",
+    "StudyHours": "Heures d'étude",
+    "SelfStudyHours": "Heures d'auto-apprentissage",
+    "OnlineClassesHours": "Heures de cours en ligne",
+    "FocusIndex": "Indice de concentration",
+    "ProductivityScore": "Score de productivité",
+    "SleepHours": "Heures de sommeil",
+    "ExerciseMinutes": "Minutes d'exercice",
+    "CaffeineIntake": "Consommation de caféine",
+    "ScreenTimeHours": "Temps d'écran",
+    "SocialMediaHours": "Temps sur les réseaux sociaux",
+    "GamingHours": "Temps de jeu",
+    "InternetQuality": "Qualité d'internet",
+    "UpcomingDeadline": "Échéance proche",
+    "MentalHealthScore": "Score de santé mentale",
+    "BurnoutLevel": "Niveau de burnout",
+    "Yes": "Oui",
+    "No": "Non",
+    "Male": "Homme",
+    "Female": "Femme",
+    "Other": "Autre",
+    "HighSchool": "Lycée",
+    "Undergraduate": "Licence",
+    "Postgraduate": "Postgraduate",
+    "Poor": "Mauvaise",
+    "Average": "Moyenne",
+    "Good": "Bonne"
+  }
+}

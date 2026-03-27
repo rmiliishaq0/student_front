@@ -9,7 +9,7 @@ import { formSchema } from "@/utils/schemas"
 import * as z from "zod";
 import {motion} from "motion/react"
 import {  Brain , RefreshCcw} from "lucide-react"
-import { FormFields } from "@/utils/constantes"
+import { getFormFields } from "@/utils/constantes"
 import { useMutation } from "@tanstack/react-query"
 import { predict } from "@/utils/api"
 import { FieldError } from "./field"
@@ -18,9 +18,12 @@ import { useAuthStore } from "@/store/auth-store"
 import { useEffect, useState } from "react"
 import { Spinner } from "./spinner"
 import Score from "./ScoreDrawer"
+import { useTranslations } from "next-intl"
 
 
 export default function PredictForm(){
+    const trans = useTranslations("Predict")
+    const t=useTranslations("Fields")
     const [open,setOpen] = useState(false)
     const {setUser,user} =useAuthStore()
     const { mutate, error, isError, isPending ,reset} = useMutation({
@@ -37,7 +40,7 @@ export default function PredictForm(){
     const form = useForm<z.output<typeof formSchema>>({
         resolver: zodResolver(formSchema) ,
         defaultValues: {
-            Age: user?.predictData?.Age || 15,
+            Age: user?.predictData?.Age || 16,
             Gender: user?.predictData?.Gender || "Other",
             AcademicLevel: user?.predictData?.AcademicLevel || "High School",
             PartTimeJob: user?.predictData?.PartTimeJob || "No",
@@ -46,10 +49,10 @@ export default function PredictForm(){
             OnlineClassesHours: user?.predictData?.OnlineClassesHours || 0,
             FocusIndex: user?.predictData?.FocusIndex || 1,
             ProductivityScore: user?.predictData?.ProductivityScore || 1,
-            SleepHours: user?.predictData?.SleepHours || 2,
+            SleepHours: user?.predictData?.SleepHours || 4,
             ExerciseMinutes: user?.predictData?.ExerciseMinutes || 0,
             CaffeineIntake: user?.predictData?.CaffeineIntake || 0,
-            ScreenTimeHours: user?.predictData?.ScreenTimeHours || 0,
+            ScreenTimeHours: user?.predictData?.ScreenTimeHours || 1,
             SocialMediaHours: user?.predictData?.SocialMediaHours || 0,
             GamingHours: user?.predictData?.GamingHours || 0,
             InternetQuality: user?.predictData?.InternetQuality || "Average",
@@ -103,7 +106,7 @@ export default function PredictForm(){
     }
 
 
-  
+  const FormFields =getFormFields(t)
     return(
         <motion.form variants={container} initial="hidden" whileInView="show" onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-6">
             { FormFields.map((i) => (
@@ -211,7 +214,7 @@ export default function PredictForm(){
                 isError && <FieldError errors={[error]} />
             }
             <motion.div initial={{ opacity: 0 ,y:20 }} viewport={{ once: true }} whileInView={{ opacity: 1 ,y:0}} transition={{duration:0.5,ease:"easeOut"}} className="flex gap-4 items-center">
-                <Button disabled={form.formState.isSubmitting || !form.formState.isValid  || isPending || isError} className="shadow-lg flex-1 p-5 bg-primary hover:bg-primary/80 text-white cursor-pointer self-end font-semibold">{
+                <Button disabled={form.formState.isSubmitting ||!form.formState.isValid || isPending || isError} className="shadow-lg flex-1 p-5 bg-primary hover:bg-primary/80 text-white cursor-pointer self-end font-semibold">{
                 isPending ? (
                   <Spinner/>
                 ):(
@@ -220,19 +223,19 @@ export default function PredictForm(){
                     <>
                         <RefreshCcw className="h-5 w-5" /> 
                         <span>
-                            Predict again
+                            {trans("PredictAgainBtn")}
                          </span>
                     </>
                     : 
                     <>
                     <Brain className="h-5 w-5" /> 
                     <span>
-                         Predict Exam Score
+                         {trans("PredictBtn")}
                     </span>
                 </>
                 )
               }</Button>
-              {user?.predictData?.isPredict && <Score open={open}  setOpen={setOpen} rawScore={user?.predictData?.score}/>}
+              {user?.predictData?.isPredict && <Score title={trans("title")} pargraph={trans("PredictParagraph")} close={trans("Close")} open={open}  setOpen={setOpen} rawScore={user?.predictData?.score}/>}
             </motion.div>
         </motion.form>   
          )

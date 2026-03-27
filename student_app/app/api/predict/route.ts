@@ -29,7 +29,7 @@ export async function POST(req:Request) {
     let score: number
     try {
       const { result } = await predictApi(validatedData)
-      score = result[0]
+      score = result
     } catch (err) {
       return NextResponse.json(
         { error: "Prediction service failed" },

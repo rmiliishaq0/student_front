@@ -9,11 +9,15 @@ import { RefreshCcw,Brain,ArrowRight,AlertTriangleIcon} from "lucide-react"
 import Link from "next/link";
 import {motion} from "motion/react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useTranslations } from "next-intl";
 
 
 const schema = formSchema.extend({score:z.number()})
 type PredictData = z.infer<typeof schema>
 export default function DachboardContent(){
+    const trans = useTranslations("Dashboard")
+    const trans2=useTranslations("Predict")
+    const t = useTranslations("DachFields")
     const {user} = useAuthStore()
     const predictData: PredictData | undefined = user?.predictData
     const email = user?.email
@@ -38,7 +42,7 @@ const item = {
        <Card className=" bg-white/5 backdrop-blur-2xl p-12 border border-white/10">
             <CardHeader>
                 <CardTitle>
-                     <motion.h1 initial={{opacity:0,y:-20}} animate={{opacity:1,y:0}} transition={{ duration: 0.5,ease: "easeOut" }} className="mb-2 text-xl font-bold">Hello {email?.slice(0,email.indexOf("@"))}</motion.h1>
+                     <motion.h1 initial={{opacity:0,y:-20}} animate={{opacity:1,y:0}} transition={{ duration: 0.5,ease: "easeOut" }} className="mb-2 text-xl font-bold">{trans("Hello")} {email?.slice(0,email.indexOf("@"))}</motion.h1>
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex gap-6 flex-col">
@@ -48,8 +52,8 @@ const item = {
                     <Card className="shadow-lg">
                  <CardContent >
                         <div className="mt-4  flex justify-center items-center flex-col">
-                            <h2 className="text-lg mb-1 font-bold">Your Performance</h2>
-                            <p className="text-muted-foreground">This is your calculated productivity score.</p>
+                            <h2 className="text-lg mb-1 font-bold">{trans2("title")}</h2>
+                            <p className="text-muted-foreground">{trans2("PredictParagraph")}</p>
                             <ScoreChart rawScore={predictData?.score}/>
                         </div>
                 </CardContent>
@@ -61,7 +65,7 @@ const item = {
                 <Card className="shadow-lg">
                 <CardHeader>
                         <CardTitle>
-                            <motion.h2 variants={item} className="font-bold text-lg my-4">Your Information</motion.h2>
+                            <motion.h2 variants={item} className="font-bold text-lg my-4">{trans("Info")}</motion.h2>
                         </CardTitle>
                     </CardHeader>
                  <CardContent className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 items-center ">
@@ -69,8 +73,8 @@ const item = {
                         Object.entries(predictData).map(([key, value]) => (
                             key != "score" &&  key != "isPredict"  && (
                             <motion.div variants={item} key={key} className=" items-center justify-center rounded-lg bg-white/5 backdrop-blur-2xl border border-white/10 shadow-lg p-4">
-                                <h3 className="text-muted-foreground mb-1">{key}</h3>
-                                <p className=" font-bold text-xl">{value}</p>
+                                <h3 className="text-muted-foreground mb-1">{t(key)}</h3>
+                                {typeof value == "number" ? <p className=" font-bold text-xl">{value}</p> :<p className=" font-bold text-xl">{t(value)}</p>}
                             </motion.div>
                             )
                         ))}
@@ -83,9 +87,9 @@ const item = {
                     <motion.div  initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{ duration: 0.6,ease: "easeOut" }}>
                         <Alert className="shadow-lg  border border-white/10">
                         <AlertTriangleIcon />
-                        <AlertTitle>No predictions yet</AlertTitle>
+                        <AlertTitle>{trans("NoPrediction")}</AlertTitle>
                             <AlertDescription>
-                            You haven’t made any predictions yet. Start now to see insights and results based on your data.
+                            {trans("NoPredictionP")}
                             </AlertDescription>
                     </Alert>
                     </motion.div>
@@ -99,12 +103,12 @@ const item = {
                              <>
                                 <RefreshCcw className="h-5 w-5" /> 
                                 <span>
-                                    Predict again
+                                    {trans2("PredictAgainBtn")}
                                 </span>
                             </>
                             :
                             <>
-                                <Brain className="h-5 w-5" /> Start Prediction <ArrowRight className="h-4 w-4" /> 
+                                <Brain className="h-5 w-5" /> {trans("StartBtn")}<ArrowRight className="h-4 w-4" /> 
                             </>
                             
                         }
